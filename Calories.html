@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+Authors:
+Michael Mckee
+KeeJoh O'Hearon
+
+Client-Server Web Programming: Lab 6
+
+The number of calories burned per hour by bicycling, jogging, and swimming is 200, 475, and
+275, respectively. A person loses 1 pound of weight for each 3500 calories burned. Write a script
+that allows the user to input the number of hours spent at each activity and then calculates and
+outputs the number of calories burned as well as the number of pounds worked off.
+
+• You must use either the attached HTML5 form to get the user’s input or create your own
+form.
+• Perform basic input validation: ensure that the user enters numeric values before doing
+the calculation and displaying the results
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<title>Calorie Calculator</title>
+<link href="styles.css" rel="stylesheet" type="text/css">
+</head>
+<script>
+  function compute() {
+    // collects form entries and saves to variables
+    var bikingHours = parseFloat(document.getElementById("bicycling").value);
+    var joggingHours = parseFloat(document.getElementById("jogging").value);
+    var swimmingHours = parseFloat(document.getElementById("swimming").value);
+
+    // expression to calculate number of calories burned
+    var caloriesBurned = ((bikingHours*200)+(joggingHours*475)+(swimmingHours*275));
+
+    // expression to calculate weight lost
+    var weightLost = (caloriesBurned/3500);
+
+    if (isNaN(bikingHours)){ // validates biking hours
+      alert("Please enter hours spent biking.."); // alert prompting correct biking hours value entry
+      return false; // exits function
+    }
+    if(isNaN(joggingHours)){ // validates jogging hours
+      alert("Please enter hours spent jogging.."); // alert prompting correct jogging hours value entry
+      return false; // exits function
+    }
+    if(isNaN(swimmingHours)){ // validates swimming hours
+      alert("Please enter hours spent swimming.."); // alert prompting correct swimming hours value entry
+      return false; // exits function
+    }
+
+    // WHEN values are validated.. returns output to user
+    else {
+      alert("Wow! You burned " + caloriesBurned.toFixed(2) + " calories and lost " + weightLost.toFixed(2) + " pounds!"); // displays alert for fun
+      document.getElementById("calories_burned").value = caloriesBurned.toFixed(2); // displays calories burned in respective field
+      document.getElementById("pounds_lost").value = weightLost.toFixed(2); // displays pounds lost in respective field
+      return true;
+    }
+  }
+</script>
+<body>
+<form id = "caloriesForm" action = "">
+<table >
+  <tr>
+    <th colspan="2">Calorie Calculator</th>
+  </tr>
+  <tr>
+    <td>Bicycling</td>
+    <td><input id="bicycling" type="text" /> hours
+    </td>
+  </tr>
+  <tr>
+    <td>Jogging</td>
+    <td><input id="jogging" type="text" /> hours
+    </td>
+  </tr>
+  <tr>
+    <td>Swimming</td>
+    <td><input id="swimming" type="text" /> hours
+    </td>
+  </tr>
+  <tr>
+    <td class="submitfield">
+      <div class="submitbutton">
+        <input type="button" size=30 value="Calculate" onclick="compute();"/>
+      </div>
+    <td class="submitfield">
+      <div class="submitbutton">
+        <input type="reset" value="Reset" />
+      </div>
+	</td>
+   </tr>
+   <tr>
+    <td>
+      <input type="text" id="calories_burned" readonly/> calories burned
+	</td>
+	<td>
+	  <input type="text" id="pounds_lost" readonly/> pounds_lost
+    </td>
+   </tr>
+</table>
+</form>
+</body>
+</html>
